@@ -510,8 +510,16 @@ class MainWindow(QMainWindow):
             return
 
         self.current_result = result
-        self.chart_panel.set_result(result)
-        self.results_panel.set_result(result)
+
+        try:
+            self.chart_panel.set_result(result)
+        except Exception as e:
+            logger.error(f"차트 표시 오류: {e}")
+
+        try:
+            self.results_panel.set_result(result)
+        except Exception as e:
+            logger.error(f"결과 표시 오류: {e}")
 
         self.status_label.setText("백테스트 완료")
         logger.info("백테스트 완료")
@@ -624,10 +632,28 @@ class MainWindow(QMainWindow):
 
 def run_app():
     """애플리케이션 실행"""
+    import os
+
+    # Windows에서 DirectWrite 폰트 오류 방지
+    if sys.platform == "win32":
+        # FreeType 폰트 엔진 사용으로 DirectWrite 우회
+        os.environ.setdefault("QT_QPA_PLATFORM", "windows:fontengine=freetype")
+
     app = QApplication(sys.argv)
 
-    # 폰트 설정
+    # 문제가 되는 폰트를 시스템 폰트로 대체
+    QFont.insertSubstitution("MS Sans Serif", "Segoe UI")
+    QFont.insertSubstitution("MS Shell Dlg", "Segoe UI")
+    QFont.insertSubstitution("MS Shell Dlg 2", "Segoe UI")
+
+    # 애플리케이션 기본 폰트 설정
     font = QFont("Segoe UI", 10)
+    if not font.exactMatch():
+        # Segoe UI가 없으면 대체 폰트 사용
+        for fallback in ["Malgun Gothic", "Arial", "Helvetica"]:
+            font = QFont(fallback, 10)
+            if font.exactMatch():
+                break
     app.setFont(font)
 
     # 메인 윈도우 생성 및 표시

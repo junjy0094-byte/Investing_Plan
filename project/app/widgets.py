@@ -28,10 +28,16 @@ from PyQt6.QtGui import QFont, QColor, QPalette, QIntValidator, QDoubleValidator
 
 import matplotlib
 matplotlib.use('QtAgg')
+
+# matplotlib 폰트 설정 (DirectWrite 에러 방지)
+import matplotlib.pyplot as plt
+plt.rcParams['font.family'] = ['DejaVu Sans', 'Arial', 'sans-serif']
+plt.rcParams['font.size'] = 10
+plt.rcParams['axes.unicode_minus'] = False
+
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
@@ -736,9 +742,18 @@ class ChartPanel(QWidget):
     def set_result(self, result: BacktestResult):
         """백테스트 결과 설정 및 차트 갱신"""
         self.result = result
-        self._plot_equity_curve()
-        self._plot_drawdown()
-        self._plot_monthly_returns()
+        try:
+            self._plot_equity_curve()
+        except Exception as e:
+            logger.error(f"자산 곡선 차트 오류: {e}")
+        try:
+            self._plot_drawdown()
+        except Exception as e:
+            logger.error(f"드로우다운 차트 오류: {e}")
+        try:
+            self._plot_monthly_returns()
+        except Exception as e:
+            logger.error(f"월별 수익률 차트 오류: {e}")
 
     def _plot_equity_curve(self):
         """자산 곡선 플롯"""
