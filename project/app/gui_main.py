@@ -626,16 +626,26 @@ def run_app():
     """애플리케이션 실행"""
     import os
 
-    # DirectWrite 폰트 오류 방지를 위한 환경변수 설정
-    os.environ["QT_QPA_PLATFORM"] = os.environ.get("QT_QPA_PLATFORM", "windows:fontengine=freetype")
+    # Windows에서 DirectWrite 폰트 오류 방지
+    if sys.platform == "win32":
+        # FreeType 폰트 엔진 사용으로 DirectWrite 우회
+        os.environ.setdefault("QT_QPA_PLATFORM", "windows:fontengine=freetype")
 
     app = QApplication(sys.argv)
 
-    # 폰트 설정 - 시스템에서 사용 가능한 폰트 우선순위 지정
-    font = QFont()
-    font_families = ["Segoe UI", "Malgun Gothic", "Arial", "sans-serif"]
-    font.setFamilies(font_families)
-    font.setPointSize(10)
+    # 문제가 되는 폰트를 시스템 폰트로 대체
+    QFont.insertSubstitution("MS Sans Serif", "Segoe UI")
+    QFont.insertSubstitution("MS Shell Dlg", "Segoe UI")
+    QFont.insertSubstitution("MS Shell Dlg 2", "Segoe UI")
+
+    # 애플리케이션 기본 폰트 설정
+    font = QFont("Segoe UI", 10)
+    if not font.exactMatch():
+        # Segoe UI가 없으면 대체 폰트 사용
+        for fallback in ["Malgun Gothic", "Arial", "Helvetica"]:
+            font = QFont(fallback, 10)
+            if font.exactMatch():
+                break
     app.setFont(font)
 
     # 메인 윈도우 생성 및 표시
