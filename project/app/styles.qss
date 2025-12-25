@@ -1,0 +1,647 @@
+/*
+ * DCA Backtest GUI - Modern QSS Stylesheet
+ *
+ * 다크/라이트 테마 지원
+ * 변수는 Python에서 동적으로 치환됩니다.
+ */
+
+/* ============================================================================
+ * 전역 스타일
+ * ============================================================================ */
+
+* {
+    font-family: "Segoe UI", "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 13px;
+}
+
+QWidget {
+    background-color: {bg_primary};
+    color: {text_primary};
+}
+
+/* ============================================================================
+ * 메인 윈도우
+ * ============================================================================ */
+
+QMainWindow {
+    background-color: {bg_primary};
+}
+
+QMainWindow::separator {
+    background-color: {border_color};
+    width: 1px;
+    height: 1px;
+}
+
+/* ============================================================================
+ * 메뉴바
+ * ============================================================================ */
+
+QMenuBar {
+    background-color: {bg_secondary};
+    border-bottom: 1px solid {border_color};
+    padding: 2px 0;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+QMenuBar::item:selected {
+    background-color: {accent_color};
+    color: {text_on_accent};
+}
+
+QMenu {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 8px;
+    padding: 4px;
+}
+
+QMenu::item {
+    padding: 8px 24px;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+QMenu::item:selected {
+    background-color: {accent_color};
+    color: {text_on_accent};
+}
+
+QMenu::separator {
+    height: 1px;
+    background-color: {border_color};
+    margin: 4px 8px;
+}
+
+/* ============================================================================
+ * 툴바
+ * ============================================================================ */
+
+QToolBar {
+    background-color: {bg_secondary};
+    border: none;
+    padding: 4px;
+    spacing: 4px;
+}
+
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 2px;
+}
+
+QToolButton:hover {
+    background-color: {hover_color};
+}
+
+QToolButton:pressed {
+    background-color: {pressed_color};
+}
+
+/* ============================================================================
+ * 버튼
+ * ============================================================================ */
+
+QPushButton {
+    background-color: {bg_tertiary};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    padding: 8px 16px;
+    min-width: 80px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background-color: {hover_color};
+    border-color: {accent_color};
+}
+
+QPushButton:pressed {
+    background-color: {pressed_color};
+}
+
+QPushButton:disabled {
+    background-color: {disabled_bg};
+    color: {disabled_text};
+    border-color: {disabled_bg};
+}
+
+/* Primary Button */
+QPushButton#primaryButton, QPushButton[primary="true"] {
+    background-color: {accent_color};
+    color: {text_on_accent};
+    border: none;
+    font-weight: 600;
+}
+
+QPushButton#primaryButton:hover, QPushButton[primary="true"]:hover {
+    background-color: {accent_hover};
+}
+
+QPushButton#primaryButton:pressed, QPushButton[primary="true"]:pressed {
+    background-color: {accent_pressed};
+}
+
+/* Success Button */
+QPushButton#successButton, QPushButton[success="true"] {
+    background-color: {success_color};
+    color: white;
+    border: none;
+}
+
+/* Danger Button */
+QPushButton#dangerButton, QPushButton[danger="true"] {
+    background-color: {error_color};
+    color: white;
+    border: none;
+}
+
+/* ============================================================================
+ * 입력 필드
+ * ============================================================================ */
+
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: {input_bg};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    padding: 8px 12px;
+    selection-background-color: {accent_color};
+}
+
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {
+    border-color: {accent_color};
+    border-width: 2px;
+}
+
+QLineEdit:disabled, QTextEdit:disabled {
+    background-color: {disabled_bg};
+    color: {disabled_text};
+}
+
+/* ============================================================================
+ * 콤보박스
+ * ============================================================================ */
+
+QComboBox {
+    background-color: {input_bg};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 120px;
+}
+
+QComboBox:hover {
+    border-color: {accent_color};
+}
+
+QComboBox:focus {
+    border-color: {accent_color};
+    border-width: 2px;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 24px;
+}
+
+QComboBox::down-arrow {
+    image: url(down_arrow.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    selection-background-color: {accent_color};
+    selection-color: {text_on_accent};
+    padding: 4px;
+}
+
+/* ============================================================================
+ * 스핀박스
+ * ============================================================================ */
+
+QSpinBox, QDoubleSpinBox {
+    background-color: {input_bg};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border-color: {accent_color};
+}
+
+QSpinBox::up-button, QDoubleSpinBox::up-button,
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    background-color: {bg_tertiary};
+    border: none;
+    width: 20px;
+}
+
+QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover,
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover {
+    background-color: {hover_color};
+}
+
+/* ============================================================================
+ * 슬라이더
+ * ============================================================================ */
+
+QSlider::groove:horizontal {
+    background-color: {border_color};
+    height: 6px;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background-color: {accent_color};
+    width: 18px;
+    height: 18px;
+    margin: -6px 0;
+    border-radius: 9px;
+}
+
+QSlider::handle:horizontal:hover {
+    background-color: {accent_hover};
+}
+
+QSlider::sub-page:horizontal {
+    background-color: {accent_color};
+    border-radius: 3px;
+}
+
+/* ============================================================================
+ * 체크박스, 라디오버튼
+ * ============================================================================ */
+
+QCheckBox, QRadioButton {
+    spacing: 8px;
+}
+
+QCheckBox::indicator, QRadioButton::indicator {
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator {
+    border: 2px solid {border_color};
+    border-radius: 4px;
+    background-color: {input_bg};
+}
+
+QCheckBox::indicator:checked {
+    background-color: {accent_color};
+    border-color: {accent_color};
+}
+
+QRadioButton::indicator {
+    border: 2px solid {border_color};
+    border-radius: 10px;
+    background-color: {input_bg};
+}
+
+QRadioButton::indicator:checked {
+    background-color: {accent_color};
+    border-color: {accent_color};
+}
+
+/* ============================================================================
+ * 탭 위젯
+ * ============================================================================ */
+
+QTabWidget::pane {
+    border: 1px solid {border_color};
+    border-radius: 8px;
+    background-color: {bg_secondary};
+    padding: 8px;
+}
+
+QTabBar::tab {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 4px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    font-weight: 500;
+}
+
+QTabBar::tab:selected {
+    background-color: {bg_secondary};
+    color: {accent_color};
+    border-bottom: 2px solid {accent_color};
+}
+
+QTabBar::tab:hover:!selected {
+    background-color: {hover_color};
+}
+
+/* ============================================================================
+ * 스크롤바
+ * ============================================================================ */
+
+QScrollBar:vertical {
+    background-color: transparent;
+    width: 12px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background-color: {scrollbar_color};
+    border-radius: 6px;
+    min-height: 30px;
+    margin: 2px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: {scrollbar_hover};
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+QScrollBar:horizontal {
+    background-color: transparent;
+    height: 12px;
+    margin: 0;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: {scrollbar_color};
+    border-radius: 6px;
+    min-width: 30px;
+    margin: 2px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: {scrollbar_hover};
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0;
+}
+
+/* ============================================================================
+ * 테이블
+ * ============================================================================ */
+
+QTableWidget, QTableView {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 8px;
+    gridline-color: {border_color};
+}
+
+QTableWidget::item, QTableView::item {
+    padding: 8px;
+}
+
+QTableWidget::item:selected, QTableView::item:selected {
+    background-color: {accent_color};
+    color: {text_on_accent};
+}
+
+QHeaderView::section {
+    background-color: {bg_tertiary};
+    border: none;
+    border-bottom: 1px solid {border_color};
+    padding: 10px;
+    font-weight: 600;
+}
+
+QHeaderView::section:hover {
+    background-color: {hover_color};
+}
+
+/* ============================================================================
+ * 그룹박스
+ * ============================================================================ */
+
+QGroupBox {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 8px;
+    margin-top: 16px;
+    padding: 16px;
+    padding-top: 24px;
+    font-weight: 600;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 4px 12px;
+    background-color: {bg_secondary};
+    border-radius: 4px;
+    color: {text_secondary};
+}
+
+/* ============================================================================
+ * 프로그레스바
+ * ============================================================================ */
+
+QProgressBar {
+    background-color: {bg_tertiary};
+    border: none;
+    border-radius: 4px;
+    height: 8px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: {accent_color};
+    border-radius: 4px;
+}
+
+/* ============================================================================
+ * 상태바
+ * ============================================================================ */
+
+QStatusBar {
+    background-color: {bg_secondary};
+    border-top: 1px solid {border_color};
+}
+
+QStatusBar::item {
+    border: none;
+}
+
+/* ============================================================================
+ * 스플리터
+ * ============================================================================ */
+
+QSplitter::handle {
+    background-color: {border_color};
+}
+
+QSplitter::handle:horizontal {
+    width: 2px;
+}
+
+QSplitter::handle:vertical {
+    height: 2px;
+}
+
+QSplitter::handle:hover {
+    background-color: {accent_color};
+}
+
+/* ============================================================================
+ * 라벨
+ * ============================================================================ */
+
+QLabel {
+    background-color: transparent;
+}
+
+QLabel#headerLabel {
+    font-size: 18px;
+    font-weight: 700;
+    color: {text_primary};
+}
+
+QLabel#subHeaderLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: {text_secondary};
+}
+
+QLabel#metricValue {
+    font-size: 24px;
+    font-weight: 700;
+    color: {accent_color};
+}
+
+QLabel#positiveValue {
+    color: {success_color};
+}
+
+QLabel#negativeValue {
+    color: {error_color};
+}
+
+/* ============================================================================
+ * 프레임
+ * ============================================================================ */
+
+QFrame#card {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 12px;
+    padding: 16px;
+}
+
+QFrame#separator {
+    background-color: {border_color};
+    max-height: 1px;
+}
+
+/* ============================================================================
+ * 로그 위젯
+ * ============================================================================ */
+
+QTextEdit#logWidget {
+    background-color: {input_bg};
+    border: 1px solid {border_color};
+    border-radius: 8px;
+    font-family: "Consolas", "Monaco", monospace;
+    font-size: 12px;
+    padding: 8px;
+}
+
+/* ============================================================================
+ * 툴팁
+ * ============================================================================ */
+
+QToolTip {
+    background-color: {bg_tertiary};
+    color: {text_primary};
+    border: 1px solid {border_color};
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+/* ============================================================================
+ * 다이얼로그
+ * ============================================================================ */
+
+QDialog {
+    background-color: {bg_primary};
+}
+
+QDialogButtonBox {
+    button-layout: 0;
+}
+
+/* ============================================================================
+ * 메시지 박스
+ * ============================================================================ */
+
+QMessageBox {
+    background-color: {bg_primary};
+}
+
+QMessageBox QLabel {
+    color: {text_primary};
+}
+
+/* ============================================================================
+ * 날짜 편집기
+ * ============================================================================ */
+
+QDateEdit {
+    background-color: {input_bg};
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+QDateEdit:focus {
+    border-color: {accent_color};
+}
+
+QDateEdit::drop-down {
+    border: none;
+    width: 24px;
+}
+
+QCalendarWidget {
+    background-color: {bg_secondary};
+    border: 1px solid {border_color};
+    border-radius: 8px;
+}
+
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: {text_primary};
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+QCalendarWidget QToolButton:hover {
+    background-color: {hover_color};
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: {bg_tertiary};
+    border-bottom: 1px solid {border_color};
+}
+
+QCalendarWidget QAbstractItemView {
+    background-color: {bg_secondary};
+    selection-background-color: {accent_color};
+    selection-color: {text_on_accent};
+}
