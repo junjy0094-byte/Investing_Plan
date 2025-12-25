@@ -647,13 +647,21 @@ def run_app():
     QFont.insertSubstitution("MS Shell Dlg 2", "Segoe UI")
 
     # 애플리케이션 기본 폰트 설정
-    font = QFont("Segoe UI", 10)
+    base_size = QApplication.font().pointSize()
+    if base_size <= 0:
+        base_size = 10
+
+    font = QFont("Segoe UI", base_size)
     if not font.exactMatch():
         # Segoe UI가 없으면 대체 폰트 사용
         for fallback in ["Malgun Gothic", "Arial", "Helvetica"]:
-            font = QFont(fallback, 10)
+            font = QFont(fallback, base_size)
             if font.exactMatch():
                 break
+
+    # 폰트 크기가 설정되지 않은 경우 안전한 기본값으로 지정
+    if font.pointSize() <= 0 and font.pixelSize() <= 0:
+        font.setPointSize(base_size)
     app.setFont(font)
 
     # 메인 윈도우 생성 및 표시
