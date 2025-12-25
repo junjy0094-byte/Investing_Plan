@@ -28,10 +28,16 @@ from PyQt6.QtGui import QFont, QColor, QPalette, QIntValidator, QDoubleValidator
 
 import matplotlib
 matplotlib.use('QtAgg')
+
+# matplotlib 폰트 설정 (DirectWrite 에러 방지)
+import matplotlib.pyplot as plt
+plt.rcParams['font.family'] = ['DejaVu Sans', 'Arial', 'sans-serif']
+plt.rcParams['font.size'] = 10
+plt.rcParams['axes.unicode_minus'] = False
+
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd

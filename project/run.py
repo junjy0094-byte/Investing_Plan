@@ -76,8 +76,30 @@ def check_dependencies():
     return True
 
 
+def setup_exception_handler():
+    """전역 예외 핸들러 설정"""
+    import traceback
+
+    def exception_hook(exc_type, exc_value, exc_traceback):
+        """처리되지 않은 예외를 잡아서 출력"""
+        if issubclass(exc_type, KeyboardInterrupt):
+            sys.__excepthook__(exc_type, exc_value, exc_traceback)
+            return
+
+        print("=" * 50)
+        print("오류가 발생했습니다:")
+        print("=" * 50)
+        traceback.print_exception(exc_type, exc_value, exc_traceback)
+        print("=" * 50)
+
+    sys.excepthook = exception_hook
+
+
 def main():
     """메인 함수"""
+    # 전역 예외 핸들러 설정
+    setup_exception_handler()
+
     # 의존성 확인
     if not check_dependencies():
         sys.exit(1)
@@ -89,7 +111,13 @@ def main():
     print("DCA Backtest GUI 시작...")
     print("=" * 50)
 
-    return run_app()
+    try:
+        return run_app()
+    except Exception as e:
+        print(f"애플리케이션 실행 중 오류: {e}")
+        import traceback
+        traceback.print_exc()
+        return 1
 
 
 if __name__ == "__main__":
