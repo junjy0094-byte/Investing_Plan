@@ -736,9 +736,18 @@ class ChartPanel(QWidget):
     def set_result(self, result: BacktestResult):
         """백테스트 결과 설정 및 차트 갱신"""
         self.result = result
-        self._plot_equity_curve()
-        self._plot_drawdown()
-        self._plot_monthly_returns()
+        try:
+            self._plot_equity_curve()
+        except Exception as e:
+            logger.error(f"자산 곡선 차트 오류: {e}")
+        try:
+            self._plot_drawdown()
+        except Exception as e:
+            logger.error(f"드로우다운 차트 오류: {e}")
+        try:
+            self._plot_monthly_returns()
+        except Exception as e:
+            logger.error(f"월별 수익률 차트 오류: {e}")
 
     def _plot_equity_curve(self):
         """자산 곡선 플롯"""

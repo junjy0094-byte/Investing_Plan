@@ -18,6 +18,10 @@ Requirements:
 import sys
 import os
 
+# Windows에서 DirectWrite 폰트 오류 방지 (QApplication 생성 전에 설정 필요)
+if sys.platform == "win32":
+    os.environ.setdefault("QT_QPA_PLATFORM", "windows:fontengine=freetype")
+
 # 프로젝트 루트를 Python 경로에 추가
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)

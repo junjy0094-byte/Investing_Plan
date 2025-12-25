@@ -510,8 +510,16 @@ class MainWindow(QMainWindow):
             return
 
         self.current_result = result
-        self.chart_panel.set_result(result)
-        self.results_panel.set_result(result)
+
+        try:
+            self.chart_panel.set_result(result)
+        except Exception as e:
+            logger.error(f"차트 표시 오류: {e}")
+
+        try:
+            self.results_panel.set_result(result)
+        except Exception as e:
+            logger.error(f"결과 표시 오류: {e}")
 
         self.status_label.setText("백테스트 완료")
         logger.info("백테스트 완료")
